@@ -1,6 +1,8 @@
 #include <iostream>
 #include <memory>
+
 #include <exception>
+
 #include <sstream>
 
 #include <cmath>
@@ -14,7 +16,7 @@
  *   one is ArrayStack , Other is PointerStack
  *   All functions must have a time complexity of O(1) not inlcuding the destructors
  *   Which hav O(n) n being the size of the stack
- *   I am generallry not trying to use anything in std c++ expcept i/o
+ *   I am generallry not trying to use anything in std c++ except i/o and exceptions
  *   Also using the stack to do some stuff
 */
 #define NILL -1
