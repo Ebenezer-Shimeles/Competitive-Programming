@@ -384,6 +384,53 @@ int64_t* SplitStringToInt64(std::string s, size_t &len){
 	return return_value;
 }
 
+template<class T>
+struct TwoNode{
+	TwoNode<T> *left, *right;
+	T data;
+	TwoNode(){}
+	TwoNode(T x){
+		data = x;
+	}
+};
+
+
+#include <stack> 
+//what about me :'(
+template<class T>
+void zigzag(TwoNode<T>* root){
+	using namespace std;
+	stack<TwoNode<T>*> s1;
+	stack<TwoNode<T>*> s2;
+	s1.push(root);
+	while(!s1.empty() || !s2.empty()){
+		while(!s1.empty()){
+		   auto val = s1.top();
+		   s1.pop();
+		   cout << val->data << " \n";
+		   if(val->left){
+		   	s2.push(val->left);
+		   } 
+		   if(val->right){
+		   	s2.push(val->right);
+		   }
+		}
+		while(!s2.empty()){
+			auto val = s2.top();
+			s2.pop();
+			
+			cout << val->data << "\n ";
+			if(val->right){
+				s1.push(val->right);
+			}
+			if(val->left){
+				s1.push(val->left);
+			}
+		}
+	}
+}
+
+
 int main(){
    using namespace std;
 //   auto s =  shared_ptr<Stack<int>>( new PointerStack<int>() );
@@ -410,19 +457,25 @@ int main(){
 //   string s;
 //   cout << "Input infix expression to evalutate: ";
 //    getline()
-    while(true){
-    	system("cls");
-    	cout << "Please Input an expression to evaluate: ";
-    	string expr;
-    	getline(cin, expr);
-    	size_t split_len = 0;
-    	auto split = SplitStringToInt64(expr, split_len);
-//    	for(auto i=0;i<split_len;i++)
-//    	   cout << "i " << i << " " << split[i] << endl;
-    	cout << "\nThe result is: " << EvalInfix(split, split_len)<<'\n'; 
-    	
-    	system("pause");
-	}
+      auto x  = new TwoNode<int>(6);
+      auto y= new TwoNode<int>(7);
+      auto z = new TwoNode<int>(13);
+      x->right = y;
+      x->left = z;
+      zigzag<int>(x);
+//    while(true){
+//    	system("cls");
+//    	cout << "Please Input an expression to evaluate: ";
+//    	string expr;
+//    	getline(cin, expr);
+//    	size_t split_len = 0;
+//    	auto split = SplitStringToInt64(expr, split_len);
+////    	for(auto i=0;i<split_len;i++)
+////    	   cout << "i " << i << " " << split[i] << endl;
+//    	cout << "\nThe result is: " << EvalInfix(split, split_len)<<'\n'; 
+//    	
+//    	system("pause");
+//	}
     return 0;
     
    
