@@ -6,49 +6,36 @@ def func(m: defaultdict, root: int, c_value:list,t_value: list):
        Goes to the last and adds the max-path
     '''
     verts = m[root]
-    N = len(verts)
     c_value.append(root)
+    
+    N = len(verts)
     if N == 0:
         t_value.append(c_value)
-    elif N == 1: #only one node
-        
-        func(m, verts[0], c_value, t_value)
-    elif N == 2:
-        l_len = max_len(m, verts[0])
-        r_len = max_len(m, verts[1])
+        return
+    
+    for i in range(1, N):
+        func(m, verts[i],[], t_value)
+    func(m, verts[0], c_value, t_value)
+  
 
-        if l_len > r_len:
-            func(m, verts[0], c_value, t_value)
-            func(m, verts[1], [], t_value)
-        else:
-            func(m, verts[1], c_value, t_value)
-            func(m, verts[0], [], t_value)
-    else:
-        max_vert = -1
-        max_l = float('-inf')
-        for vert in verts:
-            l = max_len(m, vert)
-            if l > max_l:
-                if max_vert != -1:
-                    func(m, max_vert, [], t_value)
-                max_l = l
-                max_vert = vert
-            else:
-                func(m, vert, [], t_value)
-        func(m, max_vert, c_value, t_value)
+# def max_len(m: defaultdict, root: int):
+#     verts = m[root]
+#     # print(verts)
+#     N = len(verts)
+
+#     if N == 0:
+#         return 1
+#     elif N == 1:
+#         return 1+ max_len(m, verts[0])
+#     elif N == 2:
+#         return 1 + max(max_len(m, verts[0]), max_len(m, verts[1]))
 
 
-def max_len(m: defaultdict, root: int):
-    verts = m[root]
-    # print(verts)
-    N = len(verts)
 
-    if N == 0:
-        return 1
-    elif N == 1:
-        return 1+ max_len(m, verts[0])
-    elif N == 2:
-        return 1 + max(max_len(m, verts[0]), max_len(m, verts[1]))
+import sys, threading
+
+input = lambda: sys.stdin.readline().strip()
+
 
 def run():
     for _ in range(t):
@@ -71,10 +58,6 @@ def run():
             print(*res)
         print('')
         #print(max_len(m, root))
-
-import sys, threading
-
-input = lambda: sys.stdin.readline().strip()
 
 
 
